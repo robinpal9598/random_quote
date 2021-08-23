@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> famous quotes</title>
+   <style  type="text/css">
+       #quotes1
+       { 
+           width: 450px;
+           height: 300px;
+           border: 10px solid rgb(38, 187, 197);
+           margin: auto;
+           padding: 10px 10px 10px 10px;
+           padding-bottom: 10px;
+           text-align: center;
+           text-shadow: 5px 5px 7px white;
+           font-size: 30px;
+       }
+       #author
+       { 
+           width: 100px;
+           height: 100px;
+           
+           margin: auto;
+           padding: 10px;
+           font-size: 15px;
+           margin-left: 400;
+           
+       }
+       
+    .container
+    {
+        width: 500px;
+        height: 500px;
+        background-color: cadetblue;
+        margin: auto;
+        padding: 20px;
+        border: 20px solid rgb(3, 75, 104);
+        animation-name:rotateIn ;
+        border-radius: 23px;
+    }
+    #date {
+        margin-left: 200px;
+        font-size: 20px;
+    }
+    #newq
+    {
+        margin: auto;
+        margin-left: 200px;border-radius: 40px;
+        background-color: rgb(3, 75, 104);
+        color: seashell;
+        width:100px;
+        height: 40px;
+    }
+    
+} 
+       
+
+       
+   </style>
+</head>
+<body><div class="container">
+    <div id="quotes1">
+    <div id="quotes">
+
+    </div><br>
+    <p id="author">
+
+    </p></div><br>
+    <div>
+        <h2><p id="date">SUNh|210 JUNE | 06:30</p></h2>
+    </div>
+    <button id="newq"> next quote</button></div>
+    <script>
+         let realdata=""; 
+        const quote=document.getElementById("quotes");
+        const author=document.getElementById("author");
+        const newq=document.getElementById("newq");
+        const getnewquotes= () =>{
+            let rnum=Math.floor(Math.random()*1600);
+           quote.innerHTML=`${realdata[rnum].text}`;
+           author.innerHTML=`${realdata[rnum].author}`;
+           //console.log(rnum);
+           //console.log(realdata[rnum]);
+        };
+       //const api="https://type.fit/api/quotes";
+        const getquotes=async()=>
+        {
+            const api="https://type.fit/api/quotes";
+            try{
+                let data=await fetch(api);
+                 realdata=await data.json();
+                 getnewquotes();
+            }
+            catch(error){}
+        };
+        newq.addEventListener("click",getnewquotes);
+       getquotes();
+       const curdate=document.getElementById("date");
+        const getcurrDay = () =>
+        { 
+            let currentTime=new Date();
+            var weekday=new Array(7);
+            weekday[0]="SUN";
+            weekday[1]="MON";
+            weekday[2]="TUE";
+            weekday[3]="WED";
+            weekday[4]="THU";
+            weekday[5]="FRI";
+            weekday[6]="SAT";
+            var day=weekday[currentTime.getDay()];
+            return day;}
+            const getcurTime =() =>
+            {
+            
+            let currentTime=new Date();
+            var month =new Array(12);
+            month[0]="JAN";
+            month[1]="FEB";
+            month[2]="MAR";
+            month[3]="APR";
+            month[4]="MAY";
+            month[5]="JUN";
+            month[6]="JUL";
+            month[7]="AUG";
+            month[8]="SEP";
+            month[9]="OCT";
+            month[10]="NOV";
+            month[11]="DEC";
+           
+            var months=month[currentTime.getMonth()];
+            var date=currentTime.getDate();
+            var year=currentTime.getFullYear();
+            var hours=currentTime.getHours();
+            var min=currentTime.getMinutes();
+            var period="AM";
+            if (min<10)
+            {
+                var min="0"+currentTime.getMinutes();
+            }
+            if (hours>11)
+            {period="PM"}
+            if(hours>12)
+            {
+                hours=hours-12;
+            }
+            if(hours<10)
+            {
+                hours="0"+hours;
+            }
+            
+            return` ${months}   ${date}  ${year}|${hours}:${min}${period}`;
+
+            
+        };
+        curdate.innerHTML=getcurrDay()+"  "+getcurTime();
+        
+
+    </script>
+    
+</body>
+</html>
