@@ -1,3 +1,3 @@
 # random_quote
 
-![Pic1](Screenshot(13).png)
+![Pic1](img1.png)
